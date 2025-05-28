@@ -6,11 +6,11 @@ opt.relativenumber = true
 opt.number = true
 
 -- tabs & indentation
-opt.tabstop = 4 -- 2 spaces for tabs
-opt.shiftwidth = 4 -- 2 spaces for indent width
-opt.expandtab = true -- expand tab to spaces
-opt.autoindent = true -- copy indent from current line when starting new one
-opt.wrap = true
+opt.tabstop = 2 -- 2 spaces for tabs
+opt.shiftwidth = 2 -- 2 spaces for indent width
+opt.expandtab = true-- expand tab to spaces
+opt.autoindent = false-- copy indent from current line when starting new one
+opt.wrap = true --
 
 -- search settings
 
@@ -32,3 +32,4 @@ opt.clipboard:append("unnamedplus")
 -- split windows
 opt.splitright = true -- split vertical window to right
 opt.splitbelow = true -- split horizontal window to the buttom
+

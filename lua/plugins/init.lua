@@ -16,7 +16,7 @@ local plugin_files = vim.fn.globpath(vim.fn.stdpath("config") .. "/lua/plugins",
 
 local plugins = {
   -- Add plugins that are not modularized
-  "github/copilot.vim",
+  -- "github/copilot.vim",
 }
 
 -- Load each plugin module

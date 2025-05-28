@@ -12,6 +12,18 @@ return {
     local luasnip = require("luasnip")
 
     cmp.setup({
+      window = {
+        documentation = {
+          border = 'rounded',  -- apply rounded border to completion preview window
+        },
+        completion = {
+          border = 'rounded',  -- optional: apply to completion menu too
+        },
+      },
+      completion = {
+        completeopt = 'menu,preview,noinsert',
+      },
+
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
@@ -33,8 +45,8 @@ return {
         { name = "nvim_lsp" },
         { name = "luasnip" },
       }, {
-        { name = "buffer" },
-      }),
+          { name = "buffer" },
+        }),
     })
   end,
 }
