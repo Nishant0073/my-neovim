@@ -14,10 +14,10 @@ return {
     cmp.setup({
       window = {
         documentation = {
-          border = 'rounded',  -- apply rounded border to completion preview window
+          border = 'rounded', -- apply rounded border to completion preview window
         },
         completion = {
-          border = 'rounded',  -- optional: apply to completion menu too
+          border = 'rounded', -- optional: apply to completion menu too
         },
       },
       completion = {
@@ -35,19 +35,19 @@ return {
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
 
-        -- Add Ctrl+j / Ctrl+i for next/prev item
+        -- Add Ctrl+j / Ctrl+k for next/prev item
         ["<C-j>"] = cmp.mapping.select_next_item(),
-        ["<C-i>"] = cmp.mapping.select_prev_item(),
+        ["<C-k>"] = cmp.mapping.select_prev_item(),
 
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
       }),
       sources = cmp.config.sources({
+        { name = 'cmdline', max_item_count = 5 }, -- Command line source
         { name = "nvim_lsp" },
         { name = "luasnip" },
       }, {
-          { name = "buffer" },
-        }),
+        { name = "buffer" },
+      }),
     })
   end,
 }
-

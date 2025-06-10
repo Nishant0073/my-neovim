@@ -31,3 +31,23 @@ autocmd("BufWritePre", {
   end,
 })
 
+-- Auto-save on InsertLeave and TextChanged (Normal mode)
+autocmd({ "InsertLeave", "TextChanged" }, {
+  group = NishantGroup,
+  pattern = "*",
+  callback = function()
+    -- Only save if buffer is modifiable and not read-only
+    if vim.bo.modified and vim.bo.modifiable and not vim.bo.readonly then
+      vim.cmd("silent! write")
+    end
+  end,
+})
+
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "dart",
+  callback = function()
+    vim.bo.formatprg = "dart format -"
+  end,
+})
+

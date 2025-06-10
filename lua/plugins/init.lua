@@ -11,23 +11,24 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Collect all plugin modules in lua/plugins/*.lua
-local plugin_files = vim.fn.globpath(vim.fn.stdpath("config") .. "/lua/plugins", "*.lua", false, true)
+-- Collect plugin modules from lua/plugins/*.lua
+local plugin_files = vim.fn.glob(vim.fn.stdpath("config") .. "/lua/plugins/*.lua", false, true)
 
 local plugins = {
-  -- Add plugins that are not modularized
+  -- Static plugins here if needed
   -- "github/copilot.vim",
+  -- "lukas-reineke/indent-blankline.nvim",
 }
 
 -- Load each plugin module
 for _, file in ipairs(plugin_files) do
   local module = file:match("lua/(.*)%.lua$"):gsub("/", ".")
-  if module ~= "plugins.init" then -- Prevent recursive loading
+  if module ~= "plugins.init" then -- Skip self to avoid recursion
     local ok, plugin = pcall(require, module)
     if ok then
       if type(plugin) == "table" then
-        -- Handle if file returns multiple plugins
-        if plugin[1] ~= nil and type(plugin[1]) == "table" then
+        -- Handle multiple plugins returned as list
+        if type(plugin[1]) == "table" then
           for _, p in ipairs(plugin) do
             table.insert(plugins, p)
           end
@@ -44,7 +45,7 @@ end
 -- Setup lazy.nvim with collected plugin specs
 require("lazy").setup(plugins)
 
--- Optional: Safe-require other config files (non-plugin modules like core/keymaps)
+-- Safe require utility for config files
 local function safe_require(name)
   local ok, err = pcall(require, name)
   if not ok then
@@ -52,6 +53,10 @@ local function safe_require(name)
   end
 end
 
-safe_require("core.options")     -- if you have core/options.lua
-safe_require("core.keymaps")     -- if you have core/keymaps.lua
+-- Load core configuration
+safe_require("core.options")   -- core/options.lua
+safe_require("core.keymaps")   -- core/keymaps.lua
+
+-- Load additional plugin configs safely
+safe_require("plugins.flutter")  -- plugins/flutter.lua
 
