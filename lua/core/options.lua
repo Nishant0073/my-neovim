@@ -33,3 +33,4 @@ opt.clipboard:append("unnamedplus")
 opt.splitright = true -- split vertical window to right
 opt.splitbelow = true -- split horizontal window to the buttom
 
+
