@@ -154,31 +154,29 @@ We wll use above sections to build our neovim config.
 Following is the file strucure of the config:
 
 ~/.config/nvim/
-├── init.lua
+├── init.lua                     -- Entry point that loads core and plugins
 ├── lua/
 │   └── myconfig/
 │       ├── core/
-│       │   ├── options.lua         -- vim.opt settings
-│       │   ├── keymaps.lua         -- all mappings
-│       │   └── autocommands.lua    -- custom autocommands
+│       │   ├── options.lua         -- Neovim options and settings
+│       │   ├── keymaps.lua         -- All keybindings and mappings
+│       │   └── autocommands.lua    -- Custom autocommands
 │       ├── plugins/
-│       │   ├── init.lua            -- loads all plugin modules
-│       │   ├── compiler.lua        -- make, dotnet, build systems
-│       │   ├── debugger.lua        -- nvim-dap, dap-ui, dap-virtual-text
-│       │   ├── git.lua             -- gitsigns, neogit, diffview
-│       │   ├── completion.lua      -- nvim-cmp, luasnip, friendly-snippets
-│       │   ├── syntax.lua          -- Treesitter: Syntax-aware highlighting, indentation, folding, Rainbow brackets, Autotag, Autopairs,vim-better-whitespace
-│       │   ├── navigation.lua      -- telescope.nvim (fuzzy finder),  symbols-outline.nvim (LSP symbol tree), whichkey, nvim-tree
-│       │   ├── linting.lua         -- nvim-lint, conform.nvim, null-ls
-│       │   ├── testing.lua         -- neotest + adapters
-│       │   ├── terminal.lua        -- toggleterm, overseer.nvim
-│       │   ├── project.lua         -- project.nvim, session managers
-│       │   ├── ui.lua              -- theme, status line, notifier
-│       │   └── lsp.lua             -- lspconfig + mason
+│       │   ├── init.lua            -- Loads all plugin modules
+│       │   ├── compiler.lua        -- Compiler tools: make, dotnet, etc.
+│       │   ├── debugger.lua        -- Debugging: nvim-dap, dap-ui, virtual text
+│       │   ├── git.lua             -- Git integrations: gitsigns, neogit, diffview
+│       │   ├── completion.lua      -- Autocompletion: nvim-cmp, luasnip, snippets
+│       │   ├── syntax.lua          -- Syntax & treesitter config, rainbow brackets
+│       │   ├── navigation.lua      -- Telescope, symbols-outline, which-key, nvim-tree
+│       │   ├── linting.lua         -- Linting & formatting: conform, nvim-lint
+│       │   ├── testing.lua         -- Testing setup with neotest + adapters
+│       │   ├── terminal.lua        -- Terminal tools: toggleterm, overseer
+│       │   ├── project.lua         -- Project/session management: project.nvim
+│       │   ├── ui.lua              -- UI settings: theme, status line, notifications
+│       │   └── lsp.lua             -- LSP configuration: mason, lspconfig, handlers
 │       ├── ui/
-│       │   ├── theme.lua           -- colorscheme, highlights
-│       │   └── statusline.lua      -- lualine, feline, etc.
-│       └── utils.lua               -- utility functions
-
-
+│       │   ├── theme.lua           -- Theme settings and highlights
+│       │   └── statusline.lua      -- Statusline (e.g., lualine or feline)
+│       └── utils.lua               -- Utility helper functions
 
