@@ -5,7 +5,6 @@ return {
       { "williamboman/mason.nvim", config = true },
       "williamboman/mason-lspconfig.nvim",
       "whoissethdaniel/mason-tool-installer.nvim",
-
       {
         "j-hui/fidget.nvim",
         opts = {},
@@ -15,16 +14,17 @@ return {
         opts = {},
       },
       {
-        "hoffs/omnisharp-extended-lsp.nvim",
-        lazy = true,
-      },
-      {
         "tris203/rzls.nvim",
         lazy = true,
         config = true,
       },
     },
+
     config = function()
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+
+      -- LSP Attach Setup
       vim.api.nvim_create_autocmd("lspattach", {
         group = vim.api.nvim_create_augroup("user-lsp-attach", { clear = true }),
         callback = function(event)
@@ -40,18 +40,17 @@ return {
           map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[w]orkspace [s]ymbols")
           map("<leader>rr", vim.lsp.buf.rename, "[r]ename")
           map("<leader>ca", vim.lsp.buf.code_action, "[c]ode [a]ction")
-          -- map("k", vim.lsp.buf.hover, "hover documentation")
-          map("gd", vim.lsp.buf.declaration, "[g]oto [d]eclaration")
+          map("K", vim.lsp.buf.hover, "hover documentation")
 
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client.server_capabilities.documenthighlightprovider then
+          if client and client.server_capabilities.documentHighlightProvider then
             local group = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
-            vim.api.nvim_create_autocmd({ "cursorhold", "cursorholdi" }, {
+            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
               group = group,
               buffer = event.buf,
               callback = vim.lsp.buf.document_highlight,
             })
-            vim.api.nvim_create_autocmd({ "cursormoved", "cursormovedi" }, {
+            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
               group = group,
               buffer = event.buf,
               callback = vim.lsp.buf.clear_references,
@@ -60,38 +59,11 @@ return {
         end,
       })
 
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
-      local servers = {
-        omnisharp = {
-          filetypes = { "cs", "vb", "cshtml" }, 
-          cmd = { "omnisharp" }, -- assumes it's in path via mason
-          enable_roslyn_analyzers = true,
-          enable_import_completion = true,
-          organize_imports_on_format = true,
-          handlers = {
-            ["textdocument/definition"] = require("omnisharp_extended").handler,
-          },
-          capabilities = capabilities,
-        },
-        -- rzls = require("rzls").lspconfig(capabilities),
-      }
-
+      -- Setup Mason
       require("mason").setup()
-      require("mason-tool-installer").setup({
-        ensure_installed = vim.tbl_keys(servers),
-      })
+      require("mason-lspconfig").setup()
 
-      require("mason-lspconfig").setup({
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-            require("lspconfig")[server_name].setup(server)
-          end,
-        },
-      })
     end,
   },
 }
+

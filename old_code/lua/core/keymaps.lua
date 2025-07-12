@@ -40,17 +40,35 @@ keymap.set("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<CR>", { desc = 
 -- ======================
 -- LSP Keybindings
 -- ======================
-keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Rename symbol" })
-keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", { desc = "Code action" })
-keymap.set("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "Go to definition" })
-keymap.set("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", { desc = "Go to references" })
-keymap.set("n", "<leader>gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", { desc = "Go to implementation" })
-keymap.set("n", "<leader>gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { desc = "Go to type definition" })
-keymap.set("n", "<leader>gl", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show diagnostics" })
-keymap.set("n", "<leader>gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "Previous diagnostic" })
-keymap.set("n", "<leader>gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "Next diagnostic" })
-keymap.set("n", "<leader>gq", "<cmd>lua vim.diagnostic.setloclist()<CR>", { desc = "Diagnostics to loclist" })
-keymap.set("n", "<leader>gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { desc = "Signature help" })
+-- keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Rename symbol" })
+-- keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", { desc = "Code action" })
+-- keymap.set("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "Go to definition" })
+-- keymap.set("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", { desc = "Go to references" })
+-- keymap.set("n", "<leader>gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", { desc = "Go to implementation" })
+-- keymap.set("n", "<leader>gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { desc = "Go to type definition" })
+-- keymap.set("n", "<leader>gl", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show diagnostics" })
+-- keymap.set("n", "<leader>gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "Previous diagnostic" })
+-- keymap.set("n", "<leader>gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "Next diagnostic" })
+-- keymap.set("n", "<leader>gq", "<cmd>lua vim.diagnostic.setloclist()<CR>", { desc = "Diagnostics to loclist" })
+-- keymap.set("n", "<leader>gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { desc = "Signature help" })
+--
+-- local keymap = vim.keymap -- for convenience
+
+-- ======================
+-- LSP Keybindings
+-- ======================
+keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP: Rename symbol" })
+keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP: Code action" })
+keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "LSP: Go to definition" })
+keymap.set("n", "<leader>gr", vim.lsp.buf.references, { desc = "LSP: Go to references" })
+keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, { desc = "LSP: Go to implementation" })
+keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { desc = "LSP: Go to type definition" })
+keymap.set("n", "<leader>gl", vim.diagnostic.open_float, { desc = "LSP: Show line diagnostics" })
+keymap.set("n", "<leader>gk", vim.diagnostic.goto_prev, { desc = "LSP: Previous diagnostic" })
+keymap.set("n", "<leader>gj", vim.diagnostic.goto_next, { desc = "LSP: Next diagnostic" })
+keymap.set("n", "<leader>gq", vim.diagnostic.setloclist, { desc = "LSP: Diagnostics to loclist" })
+keymap.set("n", "<leader>gs", vim.lsp.buf.signature_help, { desc = "LSP: Signature help" })
+
 
 -- ======================
 -- Telescope for LSP
