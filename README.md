@@ -153,8 +153,9 @@ We wll use above sections to build our neovim config.
 
 Following is the file strucure of the config:
 
+```text
 ~/.config/nvim/
-├── init.lua                     -- Entry point that loads core and plugins
+├── init.lua                      -- Entry point that loads core and plugins
 ├── lua/
 │   └── myconfig/
 │       ├── core/
@@ -179,4 +180,4 @@ Following is the file strucure of the config:
 │       │   ├── theme.lua           -- Theme settings and highlights
 │       │   └── statusline.lua      -- Statusline (e.g., lualine or feline)
 │       └── utils.lua               -- Utility helper functions
-
+```
