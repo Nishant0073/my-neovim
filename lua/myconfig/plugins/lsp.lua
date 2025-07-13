@@ -10,12 +10,12 @@ return {
     -- 🔌 Mason + lspconfig bridge
     {
         "williamboman/mason-lspconfig.nvim",
-        dependencies = { "neovim/nvim-lspconfig", "williamboman/mason.nvim" ,"Hoffs/omnisharp-extended-lsp.nvim"},
+        dependencies = { "neovim/nvim-lspconfig", "williamboman/mason.nvim" },
         config = function()
             require("mason").setup()
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "omnisharp",       -- C#
+                    "csharp-ls", -- C#
                     -- "razor_ls",        -- Razor/CSHTML
                     "clangd",          -- C++
                     "pyright",         -- Python
@@ -49,46 +49,15 @@ return {
                 keymap("n", "<leader>ld", vim.diagnostic.open_float, opts)
             end
 
-            -- 🟣 C# + CSHTML via omnisharp
+            -- 🟣 C# + CSHTML via clang-ls
             local pid = vim.fn.getpid()
             local lspconfig = require("lspconfig")
-            local omnisharp_ext = require("omnisharp_extended")
 
-            lspconfig.omnisharp.setup({
-                cmd = {
-                    "dotnet",
-                    vim.fn.expand("~/.local/share/nvim/mason/packages/omnisharp/OmniSharp.dll"),
-                },
-                enable_import_completion = true,
-                enable_roslyn_analyzers = true,
-                organize_imports_on_format = true,
-                handlers = {
-                    ["textDocument/definition"] = omnisharp_ext.handler,
-                },
-                capabilities = require("cmp_nvim_lsp").default_capabilities(),
-            })
-            -- lspconfig.omnisharp.setup({
-            --   capabilities = capabilities,
-            --   on_attach = on_attach,
-            --   -- cmd = { "dotnet", "/usr/lib/omnisharp-roslyn/OmniSharp"  }, -- make sure it's in PATH or install via mason
-            --   cmd = { "dotnet", vim.fn.expand("~/.local/share/nvim/mason/packages/omnisharp/OmniSharp.dll") },
-            --
-            --   enable_editorconfig_support = true,
-            --   enable_roslyn_analyzers = true,
-            --   organize_imports_on_format = true,
-            --   enable_import_completion = true,
-            -- })
-            --
-            -- -- 🌐 Razor (CSHTML)
-            -- lspconfig.razor_ls.setup({
-            --   capabilities = capabilities,
-            --   on_attach = on_attach,
-            -- })
-
-            -- ⚙️ C++
-            lspconfig.clangd.setup({
-                capabilities = capabilities,
-                on_attach = on_attach,
+            lspconfig.csharp_ls.setup({
+                cmd = { "csharp-ls" },
+                filetypes = { "cs" },
+                root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj"),
+                init_options = { AutomaticWorkspaceInit = true },
             })
 
             -- 🐍 Python

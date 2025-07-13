@@ -12,6 +12,9 @@ require("lazy").setup({
   { import = "myconfig.plugins.testing" },
   { import = "myconfig.plugins.project" },
   { import = "myconfig.plugins.compiler" },
+  { import = "myconfig.plugins.ai" },
+  { import = "myconfig.plugins.dotnet" },
+  -- { import = "myconfig.plugins.dotnet" },
 
   -- Optional: You can register standalone plugins here too
   -- {

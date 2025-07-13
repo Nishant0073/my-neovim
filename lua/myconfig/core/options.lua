@@ -100,7 +100,7 @@ opt.virtualedit = "block"        -- Allow cursor to move where there is no text 
 -- For faster editing of large files
 -- ================================================
 
-opt.lazyredraw = true            -- Don't redraw during macros and other events
+opt.lazyredraw =  false          -- Don't redraw during macros and other events
 opt.synmaxcol = 300              -- Stop syntax highlight after x columns (performance)
 
 -- ================================================

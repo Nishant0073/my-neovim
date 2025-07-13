@@ -38,3 +38,20 @@ require("overseer").setup({
 -- Manually register the template from your path
 require("overseer").register_template(require("myconfig.tasks.dotnet"))
 
+
+local utils = require("myconfig.utils")
+
+-- Reload a module
+utils.reload("myconfig.plugins.git")
+
+-- Join a path
+print(utils.join_path(vim.fn.stdpath("config"), "lua", "myconfig"))
+
+-- Set keybinding
+utils.map("n", "<leader>xx", ":echo 'Hello'<CR>", "Say hello")
+
+-- Use deferred function
+utils.defer(function()
+  print("Delayed execution!")
+end, 1000)
+
