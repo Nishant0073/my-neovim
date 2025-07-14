@@ -15,7 +15,7 @@ return {
             require("mason").setup()
             require("mason-lspconfig").setup({
                 ensure_installed = {
-                    "csharp-ls", -- C#
+                    -- "csharp-ls", -- C#
                     -- "razor_ls",        -- Razor/CSHTML
                     "clangd",          -- C++
                     "pyright",         -- Python

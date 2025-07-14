@@ -65,77 +65,97 @@ return {
         end,
     },
 
-    -- 📁 nvim-tree: File explorer
+    -- 📁 neo-tree: File explorer (replacement for nvim-tree)
     {
-        "nvim-tree/nvim-tree.lua",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        lazy = false,
-        priority = 1000,
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons",
+            "MunifTanjim/nui.nvim",
+        },
         config = function()
-            -- 🔌 Disable netrw
-            vim.g.loaded_netrw = 1
-            vim.g.loaded_netrwPlugin = 1
+            require("neo-tree").setup({
+                close_if_last_window = true,
+                popup_border_style = "rounded",
+                enable_git_status = true,
+                enable_diagnostics = false,
 
-            -- 📁 Setup nvim-tree
-            require("nvim-tree").setup({
-                sort_by = "case_sensitive",
-                view = {
-                    width = 30,
-                    side = "left",
-                    preserve_window_proportions = true,
-                },
-                renderer = {
-                    group_empty = true,
-                    highlight_git = true,
-                    icons = {
-                        show = {
-                            git = true,
-                            folder = true,
-                            file = true,
-                            folder_arrow = true,
+                default_component_configs = {
+                    indent = {
+                        padding = 1,
+                    },
+                    icon = {
+                        folder_closed = "",
+                        folder_open = "",
+                        folder_empty = "",
+                    },
+                    git_status = {
+                        symbols = {
+                            added = "✚",
+                            modified = "",
+                            deleted = "✖",
+                            renamed = "➜",
+                            untracked = "★",
+                            ignored = "◌",
+                            unstaged = "✗",
+                            staged = "✓",
+                            conflict = "",
                         },
                     },
                 },
-                filters = {
-                    dotfiles = false,
-                    git_ignored = false,
-                },
-                git = {
-                    enable = true,
-                    ignore = false,
-                },
-                update_focused_file = {
-                    enable = true,
-                    update_root = true,
-                },
-                actions = {
-                    remove_file = {
-                        close_window = false,
-                        trash = {
-                            cmd = "gio trash", -- or "trash-put" if using trash-cli
-                            require_confirm = true,
+
+                filesystem = {
+                    filtered_items = {
+                        visible = true,
+                        hide_dotfiles = false,
+                        hide_gitignored = false,
+                    },
+                    follow_current_file = {
+                        enabled = true,
+                    },
+                    hijack_netrw_behavior = "open_default",
+                    use_libuv_file_watcher = true,
+                    window = {
+                        width = 30,
+                        position = "left",
+                        mappings = {
+                            ["<space>"] = "none",
+                            ["d"] = "delete",
+                            ["r"] = "rename",
+                            ["a"] = "add",
+                            ["x"] = "cut",
+                            ["c"] = "copy",
+                            ["p"] = "paste",
+                            ["<CR>"] = "open",
+                            ["o"] = "system_open",
                         },
+                    },
+                    commands = {
+                        delete = function(state)
+                            local path = state.tree:get_node().path
+                            vim.fn.system({ "gio", "trash", path })
+                            require("neo-tree.sources.manager").refresh("filesystem")
+                        end,
                     },
                 },
             })
 
-            -- 📂 Auto-open tree on `nvim .` or dir
-            local function open_nvim_tree(data)
-                local directory = vim.fn.isdirectory(data.file) == 1
-                if not directory then return end
-
-                vim.cmd.cd(data.file)
-                require("nvim-tree.api").tree.open()
-            end
-
+            -- 🏁 Auto open neo-tree when `nvim .` is run
             vim.api.nvim_create_autocmd("VimEnter", {
-                callback = open_nvim_tree,
+                callback = function(data)
+                    local dir = vim.fn.isdirectory(data.file) == 1
+                    if not dir then return end
+                    vim.cmd.cd(data.file)
+                    require("neo-tree.command").execute({ action = "show", source = "filesystem" })
+                end,
             })
         end,
     },
 
 
-    -- 🧠 Which-Key: Smart popup for keybinding hints
+
+    --  Which-Key: Smart popup for keybinding hints
     {
         "folke/which-key.nvim",
         event = "VeryLazy",
