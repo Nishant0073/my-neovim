@@ -66,64 +66,73 @@ return {
     },
 
     -- 📁 nvim-tree: File explorer
-{
-  "nvim-tree/nvim-tree.lua",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
-  lazy = false, -- load at startup
-  priority = 1000,
-  config = function()
-    -- 🔌 Disable netrw
-    vim.g.loaded_netrw = 1
-    vim.g.loaded_netrwPlugin = 1
+    {
+        "nvim-tree/nvim-tree.lua",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        lazy = false,
+        priority = 1000,
+        config = function()
+            -- 🔌 Disable netrw
+            vim.g.loaded_netrw = 1
+            vim.g.loaded_netrwPlugin = 1
 
-    -- 📁 Setup nvim-tree
-    require("nvim-tree").setup({
-      sort_by = "case_sensitive",
-      view = {
-        width = 30,
-        side = "left",
-        preserve_window_proportions = true,
-      },
-      renderer = {
-        group_empty = true,
-        highlight_git = true,
-        icons = {
-          show = {
-            git = true,
-            folder = true,
-            file = true,
-            folder_arrow = true,
-          },
-        },
-      },
-      filters = {
-        dotfiles = false,
-        git_ignored = false,
-      },
-      git = {
-        enable = true,
-        ignore = false,
-      },
-      update_focused_file = {
-        enable = true,
-        update_root = true,
-      },
-    })
+            -- 📁 Setup nvim-tree
+            require("nvim-tree").setup({
+                sort_by = "case_sensitive",
+                view = {
+                    width = 30,
+                    side = "left",
+                    preserve_window_proportions = true,
+                },
+                renderer = {
+                    group_empty = true,
+                    highlight_git = true,
+                    icons = {
+                        show = {
+                            git = true,
+                            folder = true,
+                            file = true,
+                            folder_arrow = true,
+                        },
+                    },
+                },
+                filters = {
+                    dotfiles = false,
+                    git_ignored = false,
+                },
+                git = {
+                    enable = true,
+                    ignore = false,
+                },
+                update_focused_file = {
+                    enable = true,
+                    update_root = true,
+                },
+                actions = {
+                    remove_file = {
+                        close_window = false,
+                        trash = {
+                            cmd = "gio trash", -- or "trash-put" if using trash-cli
+                            require_confirm = true,
+                        },
+                    },
+                },
+            })
 
-    -- 📂 Auto-open tree on `nvim .` or dir
-    local function open_nvim_tree(data)
-      local directory = vim.fn.isdirectory(data.file) == 1
-      if not directory then return end
+            -- 📂 Auto-open tree on `nvim .` or dir
+            local function open_nvim_tree(data)
+                local directory = vim.fn.isdirectory(data.file) == 1
+                if not directory then return end
 
-      vim.cmd.cd(data.file)
-      require("nvim-tree.api").tree.open()
-    end
+                vim.cmd.cd(data.file)
+                require("nvim-tree.api").tree.open()
+            end
 
-    vim.api.nvim_create_autocmd("VimEnter", {
-      callback = open_nvim_tree,
-    })
-  end,
-},
+            vim.api.nvim_create_autocmd("VimEnter", {
+                callback = open_nvim_tree,
+            })
+        end,
+    },
 
 
     -- 🧠 Which-Key: Smart popup for keybinding hints
