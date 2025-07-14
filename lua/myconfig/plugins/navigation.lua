@@ -114,7 +114,7 @@ return {
                     follow_current_file = {
                         enabled = true,
                     },
-                    hijack_netrw_behavior = "open_default",
+                    hijack_netrw_behavior = "disabled", -- Disable netrw hijacking
                     use_libuv_file_watcher = true,
                     window = {
                         width = 30,
@@ -140,16 +140,16 @@ return {
                     },
                 },
             })
-
             -- 🏁 Auto open neo-tree when `nvim .` is run
-            vim.api.nvim_create_autocmd("VimEnter", {
-                callback = function(data)
-                    local dir = vim.fn.isdirectory(data.file) == 1
-                    if not dir then return end
-                    vim.cmd.cd(data.file)
-                    require("neo-tree.command").execute({ action = "show", source = "filesystem" })
-                end,
-            })
+        vim.api.nvim_create_autocmd("VimEnter", {
+            callback = function(data)
+                local dir = vim.fn.isdirectory(data.file) == 1
+                if not dir then return end
+                vim.cmd.cd(data.file)
+                require("neo-tree.command").execute({ action = "show", source = "filesystem" })
+            end,
+        })
+
         end,
     },
 

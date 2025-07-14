@@ -40,7 +40,6 @@ return {
     -- Statusline
     {
         "nvim-lualine/lualine.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
             require("lualine").setup({
                 options = {
@@ -55,8 +54,6 @@ return {
     -- Buffer line (like tabs)
     {
         "akinsho/bufferline.nvim",
-        version = "*",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
             require("bufferline").setup({
                 options = {
@@ -65,15 +62,6 @@ return {
                     separator_style = "slant",
                 },
             })
-        end,
-    },
-
-    -- File tree with icons
-    {
-        "nvim-tree/nvim-tree.lua",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        config = function()
-            require("nvim-tree").setup()
         end,
     },
 

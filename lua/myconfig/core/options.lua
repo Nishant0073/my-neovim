@@ -2,6 +2,12 @@
 
 -- Set leader key
 vim.g.mapleader = ","
+-- 🚫 Disable netrw and nvim-tree if still lurking
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_nvim_tree = 1
+vim.g.loaded_nvim_tree_plugin = 1
+
 
 -- Use vim.opt for cleaner API access
 local opt = vim.opt
