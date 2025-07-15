@@ -169,7 +169,7 @@ Following is the file strucure of the config:
 │       │   ├── git.lua             -- Git integrations: gitsigns, neogit, diffview
 │       │   ├── completion.lua      -- Autocompletion: nvim-cmp, luasnip, snippets
 │       │   ├── syntax.lua          -- Syntax & treesitter config, rainbow brackets
-│       │   ├── navigation.lua      -- Telescope, symbols-outline, which-key, neo-tree
+│       │   ├── navigation.lua      -- Telescope, symbols-outline, which-key, neo-tree, trouble.nvim
 │       │   ├── linting.lua         -- Linting & formatting: conform, nvim-lint
 │       │   ├── testing.lua         -- Testing setup with neotest + adapters
 │       │   ├── terminal.lua        -- Terminal tools: toggleterm, overseer

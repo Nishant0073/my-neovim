@@ -47,9 +47,6 @@ utils.reload("myconfig.plugins.git")
 -- Join a path
 print(utils.join_path(vim.fn.stdpath("config"), "lua", "myconfig"))
 
--- Set keybinding
-utils.map("n", "<leader>xx", ":echo 'Hello'<CR>", "Say hello")
-
 -- Use deferred function
 utils.defer(function()
   print("Delayed execution!")

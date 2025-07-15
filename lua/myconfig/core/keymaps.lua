@@ -1,6 +1,7 @@
 vim.g.mapleader = ","
 local keymap = vim.keymap
 
+
 -- ======================
 -- 🧭 Navigation (Telescope)
 -- ======================
@@ -10,12 +11,12 @@ keymap.set("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<C
 keymap.set("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<CR>", { desc = "Help tags" })
 
 -- ======================
--- 📁 File Explorer (nvim-tree)
+-- 📁 File Explorer (neo-tree)
 -- ======================
-keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
-keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Find file in explorer" })
-keymap.set("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse file explorer" })
-keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" })
+keymap.set("n", "<leader>ee", "<cmd>Neotree toggle<CR>", { desc = "Toggle file explorer" })
+keymap.set("n", "<leader>ef", "<cmd>Neotree reveal<CR>", { desc = "Find file in explorer" })
+keymap.set("n", "<leader>ec", "<cmd>Neotree close<CR>", { desc = "Collapse/Close file explorer" })
+keymap.set("n", "<leader>er", "<cmd>Neotree refresh<CR>", { desc = "Refresh file explorer" })
 
 -- ======================
 -- 📄 Buffer Management
@@ -35,7 +36,7 @@ keymap.set("n", "<leader>4", "<cmd>BufferLineGoToBuffer 4<CR>", { desc = "Buffer
 -- ======================
 keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
 keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
-keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+-- keymap.set("n", "<leader>gd", builtin.lsp_definitions, { desc = "Go to definition" })
 keymap.set("n", "<leader>gr", vim.lsp.buf.references, { desc = "Go to references" })
 keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
 keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
@@ -133,4 +134,10 @@ keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open file in new ta
 -- 📚 Symbols Outline
 -- ======================
 keymap.set("n", "<leader>so", "<cmd>SymbolsOutline<CR>", { desc = "Toggle Symbols Outline" })
+
+-- ======================
+-- 📚 Touble handling error
+-- ======================
+keymap.set("n", "<leader>xx", function() require("trouble").toggle() end, { desc = "Toggle Trouble" })
+keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end, { desc = "Workspace Diagnostics" })
 
