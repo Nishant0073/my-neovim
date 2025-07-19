@@ -53,15 +53,16 @@ return {
 
     -- Buffer line (like tabs)
     {
-        "akinsho/bufferline.nvim",
+        'romgrk/barbar.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        init = function() vim.g.barbar_auto_setup = false end,
         config = function()
-            require("bufferline").setup({
-                options = {
-                    mode = "buffers",
-                    diagnostics = "nvim_lsp",
-                    separator_style = "slant",
-                },
-            })
+            require('barbar').setup {
+                animation = true,
+                auto_hide = false,
+                tabpages = true,
+                clickable = true,
+            }
         end,
     },
 

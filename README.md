@@ -174,7 +174,7 @@ Following is the file strucure of the config:
 │       │   ├── testing.lua         -- Testing setup with neotest + adapters
 │       │   ├── terminal.lua        -- Terminal tools: toggleterm, overseer
 │       │   ├── project.lua         -- Project/session management: project.nvim
-│       │   ├── ui.lua              -- UI settings: theme, status line, notifications
+│       │   ├── ui.lua              -- UI settings: theme, status line,barbar,  notifications
 │       │   ├── dotnet.lua          -- razor-rsly plugins
 │       │   ├── ai.lua              -- AI-based coding assistants: GitHub Copilot, Codeium, TabNine
 │       │   └── lsp.lua             -- LSP configuration: mason, lspconfig, handlers

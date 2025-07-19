@@ -21,22 +21,27 @@ keymap.set("n", "<leader>er", "<cmd>Neotree refresh<CR>", { desc = "Refresh file
 -- ======================
 -- 📄 Buffer Management
 -- ======================
-keymap.set("n", "<Tab>", "<cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
-keymap.set("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
-keymap.set("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Close buffer" })
-keymap.set("n", "<leader>bo", "<cmd>BDelete all<CR>", { desc = "Close all buffers" })
-keymap.set("n", "<leader>bh", "<cmd>BDelete hidden<CR>", { desc = "Close hidden buffers" })
-keymap.set("n", "<leader>1", "<cmd>BufferLineGoToBuffer 1<CR>", { desc = "Buffer 1" })
-keymap.set("n", "<leader>2", "<cmd>BufferLineGoToBuffer 2<CR>", { desc = "Buffer 2" })
-keymap.set("n", "<leader>3", "<cmd>BufferLineGoToBuffer 3<CR>", { desc = "Buffer 3" })
-keymap.set("n", "<leader>4", "<cmd>BufferLineGoToBuffer 4<CR>", { desc = "Buffer 4" })
 
+-- Navigate buffers
+keymap.set("n", "<Tab>", "<cmd>BufferNext<CR>", { desc = "Next buffer" })
+keymap.set("n", "<S-Tab>", "<cmd>BufferPrevious<CR>", { desc = "Previous buffer" })
+
+-- Close buffers
+keymap.set("n", "<leader>bd", "<cmd>BufferClose<CR>", { desc = "Close current buffer" })
+keymap.set("n", "<leader>bo", "<cmd>BufferCloseAllButCurrent<CR>", { desc = "Close all but current" })
+keymap.set("n", "<leader>bh", "<cmd>BufferCloseAllButVisible<CR>", { desc = "Close hidden buffers" })
+
+-- Go to specific buffer by position
+keymap.set("n", "<leader>1", "<cmd>BufferGoto 1<CR>", { desc = "Go to buffer 1" })
+keymap.set("n", "<leader>2", "<cmd>BufferGoto 2<CR>", { desc = "Go to buffer 2" })
+keymap.set("n", "<leader>3", "<cmd>BufferGoto 3<CR>", { desc = "Go to buffer 3" })
+keymap.set("n", "<leader>4", "<cmd>BufferGoto 4<CR>", { desc = "Go to buffer 4" })
 -- ======================
 -- 🧠 LSP
 -- ======================
 keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
 keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
--- keymap.set("n", "<leader>gd", builtin.lsp_definitions, { desc = "Go to definition" })
+keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 keymap.set("n", "<leader>gr", vim.lsp.buf.references, { desc = "Go to references" })
 keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
 keymap.set("n", "<leader>gt", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
@@ -97,7 +102,7 @@ keymap.set("n", "<leader>gs", "<cmd>Gitsigns stage_hunk<CR>", { desc = "Stage hu
 keymap.set("n", "<leader>gr", "<cmd>Gitsigns reset_hunk<CR>", { desc = "Reset hunk" })
 keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame_line<CR>", { desc = "Blame line" })
 keymap.set("n", "<leader>gg", "<cmd>Neogit<CR>", { desc = "Open Neogit" })
-keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", { desc = "Open Diffview" })
+keymap.set("n", "<leader>ggd", "<cmd>DiffviewOpen<CR>", { desc = "Open Diffview" })
 keymap.set("n", "<leader>gh", "<cmd>DiffviewFileHistory<CR>", { desc = "File History" })
 
 -- Telescope Git (lazy)
@@ -140,4 +145,4 @@ keymap.set("n", "<leader>so", "<cmd>SymbolsOutline<CR>", { desc = "Toggle Symbol
 -- ======================
 keymap.set("n", "<leader>xx", function() require("trouble").toggle() end, { desc = "Toggle Trouble" })
 keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end, { desc = "Workspace Diagnostics" })
-
+keymap.set("n", "<leader>td", "<cmd>Trouble lsp_definitions<CR>", { desc = "LSP definitions in Trouble" })
