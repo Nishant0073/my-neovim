@@ -26,6 +26,7 @@ require("myconfig.plugins")  -- will call all plugin categories
 require("myconfig.ui.theme")
 require("myconfig.ui.statusline")
 require("myconfig.utils")
+require("myconfig.lang.cpp")
 
 
 require("overseer").setup({
