@@ -14,7 +14,6 @@ require("lazy").setup({
   { import = "myconfig.plugins.compiler" },
   { import = "myconfig.plugins.ai" },
   { import = "myconfig.plugins.dotnet" },
-  -- { import = "myconfig.plugins.dotnet" },
 
   -- Optional: You can register standalone plugins here too
   -- {
@@ -22,5 +21,6 @@ require("lazy").setup({
   -- },
 })
 
+-- for dotnet tasks, register the template manually
 require("overseer").register_template(require("myconfig.tasks.dotnet"))
 

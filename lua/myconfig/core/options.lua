@@ -118,3 +118,15 @@ if vim.g.neovide then
   vim.g.neovide_transparency = 0.95
 end
 
+
+-- for copilot
+-- Disable default Tab mapping
+vim.g.copilot_no_tab_map = true
+
+-- Accept Copilot suggestion only on double-tab
+vim.api.nvim_set_keymap("i", "<Tab><Tab>", 'copilot#Accept("<CR>")', {
+  expr = true,
+  silent = true,
+  noremap = true,
+  replace_keycodes = false,
+})

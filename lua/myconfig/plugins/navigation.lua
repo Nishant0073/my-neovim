@@ -1,6 +1,7 @@
 -- File: ~/.config/nvim/lua/myconfig/plugins/navigation.lua
 -- Plugins: telescope.nvim (fuzzy finder), harpoon (file bookmarks), symbols-outline.nvim (LSP symbol tree)
 
+
 return {
     -- 🔭 Telescope: Powerful fuzzy finder
     {
@@ -65,91 +66,49 @@ return {
         end,
     },
 
-    -- 📁 neo-tree: File explorer (replacement for nvim-tree)
+    -- nvim-tree for file explorer
+
     {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v3.x",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons",
-            "MunifTanjim/nui.nvim",
-        },
+        "nvim-tree/nvim-tree.lua",
+        version = "*",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
-            require("neo-tree").setup({
-                close_if_last_window = true,
-                popup_border_style = "rounded",
-                enable_git_status = true,
-                enable_diagnostics = false,
+            local file_utils = require("myconfig.utils")
 
-                default_component_configs = {
-                    indent = {
-                        padding = 1,
-                    },
-                    icon = {
-                        folder_closed = "",
-                        folder_open = "",
-                        folder_empty = "",
-                    },
-                    git_status = {
-                        symbols = {
-                            added = "✚",
-                            modified = "",
-                            deleted = "✖",
-                            renamed = "➜",
-                            untracked = "★",
-                            ignored = "◌",
-                            unstaged = "✗",
-                            staged = "✓",
-                            conflict = "",
-                        },
-                    },
+            require("nvim-tree").setup({
+
+                sort = {
+                    sorter = "case_sensitive",
                 },
-
-                filesystem = {
-                    filtered_items = {
-                        visible = true,
-                        hide_dotfiles = false,
-                        hide_gitignored = false,
-                    },
-                    follow_current_file = {
-                        enabled = true,
-                    },
-                    hijack_netrw_behavior = "disabled", -- Disable netrw hijacking
-                    use_libuv_file_watcher = true,
-                    window = {
-                        width = 30,
-                        position = "left",
-                        mappings = {
-                            ["<space>"] = "none",
-                            ["d"] = "delete",
-                            ["r"] = "rename",
-                            ["a"] = "add",
-                            ["x"] = "cut",
-                            ["c"] = "copy",
-                            ["p"] = "paste",
-                            ["<CR>"] = "open",
-                            ["o"] = "system_open",
-                        },
-                    },
-                    commands = {
-                        delete = function(state)
-                            local path = state.tree:get_node().path
-                            vim.fn.system({ "gio", "trash", path })
-                            require("neo-tree.sources.manager").refresh("filesystem")
-                        end,
+                view = {
+                    width = 30,
+                },
+                renderer = {
+                    group_empty = true,
+                },
+                filters = {
+                    dotfiles = false,
+                    git_ignored = false,
+                },
+                git = {
+                    enable = true,
+                },
+                actions = {
+                    open_file = {
+                        quit_on_open = false,
                     },
                 },
             })
-            -- 🏁 Auto open neo-tree when `nvim .` is run
+
             vim.api.nvim_create_autocmd("VimEnter", {
                 callback = function(data)
-                    local dir = vim.fn.isdirectory(data.file) == 1
-                    if not dir then return end
-                    vim.cmd.cd(data.file)
-                    require("neo-tree.command").execute({ action = "show", source = "filesystem" })
+                    local directory = vim.fn.isdirectory(data.file) == 1
+                    if directory then
+                        vim.cmd.cd(data.file)
+                        require("nvim-tree.api").tree.open()
+                    end
                 end,
             })
-
         end,
     },
 
