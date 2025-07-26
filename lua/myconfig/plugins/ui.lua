@@ -129,5 +129,17 @@ return {
                 view_search = "virtualtext",
             },
         },
-    }
+
+    },
+        {
+            "nvim-pack/nvim-spectre",
+            dependencies = { "nvim-lua/plenary.nvim" },
+            keys = {
+                { "<leader>rr", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
+                { "<leader>rw", function() require("spectre").open_visual({select_word=true}) end, desc = "Replace current word (Spectre)" },
+                { "<leader>rf", function() require("spectre").open_file_search() end, desc = "Replace in current file (Spectre)" },
+            },
+            config = true,
+        }
+
 }

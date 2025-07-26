@@ -57,30 +57,7 @@ utils.defer(function()
     print("Delayed execution!")
 end, 1000)
 
-local function NvimTreeTrash()
-	local lib = require('nvim-tree.lib')
-	local node = lib.get_node_at_cursor()
-	local trash_cmd = "trash "
-
-	local function get_user_input_char()
-		local c = vim.fn.getchar()
-		return vim.fn.nr2char(c)
-	end
-
-	print("Trash " .. node.name .. " ? y/n")
-
-	if node and get_user_input_char():match('^y') then
-		vim.fn.jobstart(trash_cmd .. vim.fn.shellescape(node.absolute_path), {
-			detach = true,
-			on_exit = function() lib.refresh_tree() end,
-		})
-	end
-
-	vim.cmd("normal! :esc<CR>")
-end
-
 -- Register custom action
 local nvim_tree_api = require("nvim-tree.api")
-nvim_tree_api.actions.define_action("custom_trash", NvimTreeTrash)
 -- all files of linux type
 vim.opt.fileformats = { "unix", "dos" }

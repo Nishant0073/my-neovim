@@ -117,5 +117,63 @@ function M.autocmd(event, pattern, callback, group)
   })
 end
 
+
+
+-- 🗑️ Move file to trash from nvim-tree
+function M.nvim_tree_trash()
+  local lib = require('nvim-tree.lib')
+  local node = lib.get_node_at_cursor()
+  if not node then return end
+
+  local trash_cmd = "trash "
+
+  local function get_user_input_char()
+    local c = vim.fn.getchar()
+    return vim.fn.nr2char(c)
+  end
+
+  print("Trash " .. node.name .. " ? y/n")
+
+  if get_user_input_char():match('^y') then
+    vim.fn.jobstart(trash_cmd .. vim.fn.shellescape(node.absolute_path), {
+      detach = true,
+      on_exit = function() lib.reload_tree() end,
+    })
+  end
+
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+end
+
+function NvimTreeTrash()
+  local api = require("nvim-tree.api")
+  local node = api.tree.get_node_under_cursor()
+  if not node or not node.absolute_path then
+    vim.notify("No file selected", vim.log.levels.WARN)
+    return
+  end
+
+  local trash_cmd = "trash "
+
+  local function get_user_input_char()
+    local c = vim.fn.getchar()
+    return vim.fn.nr2char(c)
+  end
+
+  print("Trash " .. node.name .. " ? y/n")
+
+  if get_user_input_char():match('^y') then
+    vim.fn.jobstart(trash_cmd .. vim.fn.shellescape(node.absolute_path), {
+      detach = true,
+      on_exit = function()
+        api.tree.reload()
+      end,
+    })
+  end
+
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+end
+
 return M
+
+
 
