@@ -1,4 +1,0 @@
-
-return {
-'OrangeT/vim-csharp'
-}

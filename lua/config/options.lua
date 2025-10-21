@@ -1,0 +1,19 @@
+-- Options are automatically loaded before lazy.nvim startup
+-- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+-- Add any additional options here
+-- Left column and similar settings
+vim.opt.number = true -- display line numbers
+vim.opt.relativenumber = true -- display relative line numbers
+vim.opt.numberwidth = 2 -- set width of line number column
+vim.opt.signcolumn = "yes" -- always show sign column
+vim.opt.wrap = false -- display lines as single line
+vim.opt.scrolloff = 10 -- number of lines to keep above/below cursor
+vim.opt.sidescrolloff = 8 -- number of columns to keep to the left/right of cursor
+
+-- Tab spacing/behavior
+vim.opt.expandtab = true -- convert tabs to spaces
+vim.opt.shiftwidth = 4 -- number of spaces inserted for each indentation level
+vim.opt.tabstop = 4 -- number of spaces inserted for tab character
+vim.opt.softtabstop = 4 -- number of spaces inserted for <Tab> key
+vim.opt.smartindent = true -- enable smart indentation
+vim.opt.breakindent = true -- enable line breaking indentation
